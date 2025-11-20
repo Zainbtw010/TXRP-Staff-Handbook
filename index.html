@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pino - Super fast, all natural JSON logger for Node.js</title>
-  <meta name="description" content="Super fast, all natural JSON logger for Node.js">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify-themeable/dist/css/theme-simple.css">
-  <style>
-    :root {
-      --base-font-size: 16px;
-      --theme-color: rgb(104, 118, 52);
-      --link-color:  rgb(104, 118, 52);
-      --link-color--hover: rgb(137, 152, 100);
-      --sidebar-name-margin: 0;
-      --sidebar-name-padding: 0;
-      --code-font-size: .9em;
-    }
-    .sidebar > h1 {
-      margin-bottom: -.75em;
-      margin-top: .75em;
-    }
-    .sidebar > h1 img {
-      height: 4em;
-    }
-    .markdown-section a code {
-      color: var(--link-color)!important;
-    }
-    .markdown-section code:not([class*="lang-"]):not([class*="language-"]) {
-      white-space: unset
-    }
-  </style>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Handbook Documentation</title>
+    <!-- Load Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles to ensure the body fills the viewport and uses the Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* Hide main scrollbar, Docsify manages content scroll */
+        }
+        /* docsify-specific styling adjustments to blend with Tailwind */
+        #app {
+            height: 100vh;
+        }
+    </style>
 </head>
-<body>
-  <div id="app"></div>
-</body>
-<script>
-  window.$docsify = {
-    name: 'pino',
-    logo: './pino-tree.png',
-    loadSidebar: 'docsify/sidebar.md',
-    repo: 'https://github.com/pinojs/pino',
-    auto2top: true,
-    ga: 'UA-103155139-1'
-  }
-</script>
-<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
-<!-- To enable syntax highlighting on TypeScript codes: -->
-<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+<body class="bg-gray-50 text-gray-800">
+    <!-- The #app element is where Docsify mounts your documentation -->
+    <div id="app" class="relative">
+        <!-- Simple loading screen while Docsify loads content -->
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-100 z-50">
+            <div class="p-6 bg-white rounded-xl shadow-xl text-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500 mx-auto"></div>
+                <p class="mt-4 text-lg font-medium text-indigo-700">Loading Handbook...</p>
+            </div>
+        </div>
+    </div>
 
+    <!-- Docsify Configuration -->
+    <script>
+        // Docsify configuration object
+        window.$docsify = {
+            name: 'Staff Handbook',
+            repo: '', // Add your GitHub repo link here if applicable
+            loadSidebar: true, // Crucial: Loads _sidebar.md for navigation
+            coverpage: false,
+            homepage: 'README.md', // Sets README.md as the main page
+            themeColor: '#4F46E5', // Primary theme color (Indigo)
+            notFoundPage: true,
+            search: {
+                maxAge: 86400000,
+                paths: 'auto',
+                placeholder: 'Search documentation',
+                noData: 'No results found!',
+            },
+            // This alias ensures the sidebar is loaded from the root folder
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md'
+            }
+        };
+    </script>
+
+    <!-- Docsify Core Scripts -->
+    <!-- The Docsify script MUST be placed after the window.$docsify configuration -->
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+
+    <!-- Docsify Plugins -->
+    <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+    <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
+    <script src="//unpkg.com/docsify/lib/plugins/external-script.min.js"></script>
+</body>
 </html>
