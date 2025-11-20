@@ -53,6 +53,13 @@
             background-color: #6366f1; /* Indigo 500 */
             border-color: #6366f1;
         }
+        /* Style for the clickable suggestion buttons */
+        .punishment-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .punishment-button:hover {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="min-h-screen selection:bg-indigo-500 selection:text-white">
@@ -343,66 +350,75 @@
             </div>
             <!-- END §4.0 ACRONYM AND COMMAND GLOSSARY -->
             
-            <!-- §4.5 DISCIPLINARY ACTION SUGGESTER (NEW FEATURE) -->
+            <!-- §4.5 STAFF DISCIPLINARY WORKFLOW (NEW FEATURE) -->
             <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-pink-500">
                 <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
                     <span class="bg-pink-500/10 text-pink-400 py-1 px-3 rounded-md text-lg mr-3">§4.5</span>
-                    Disciplinary Action Suggester
+                    Staff Disciplinary Workflow
                 </h2>
-                <p class="text-slate-400 mb-6">Use this tool to find the correct, consistent punishment based on the rules broken and your current staff authority.</p>
+                <p class="text-slate-400 mb-6">Use this tool to find the correct, consistent punishment and generate the appeal message.</p>
 
                 <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-6">
-                    <!-- Input 1: Staff Role -->
-                    <div class="space-y-2">
-                        <label for="staffRole" class="text-white font-medium block">1. Your Current Staff Role (Authority)</label>
-                        <select id="staffRole" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 transition-colors" onchange="suggestPunishment()">
-                            <option value="1">Regular Staff (Minor/Major Violations)</option>
-                            <option value="2">Admin+ (All Violations, including Zero Tolerance)</option>
-                        </select>
-                        <p class="text-xs text-slate-500">This affects your power to issue Bans (Severity 3 actions).</p>
+                    
+                    <!-- Input 1 & 2: Role and User ID -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Staff Role -->
+                        <div class="space-y-2">
+                            <label for="staffRole" class="text-white font-medium block">1. Your Staff Role (Authority)</label>
+                            <select id="staffRole" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 transition-colors" onchange="suggestPunishment()">
+                                <option value="1">Regular Staff (Minor/Major)</option>
+                                <option value="2">Admin+ (All Violations)</option>
+                            </select>
+                        </div>
+
+                        <!-- Target User ID -->
+                        <div class="space-y-2">
+                            <label for="targetUser" class="text-white font-medium block">2. Target Player's Username/ID</label>
+                            <input type="text" id="targetUser" placeholder="PlayerName#0000" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 transition-colors" value="PlayerName" oninput="clearMessage()">
+                        </div>
                     </div>
 
-                    <!-- Input 2: Rules Broken -->
-                    <div class="space-y-3">
-                        <p class="text-white font-medium mb-2">2. Select ALL Rules Broken (Checklist)</p>
+                    <!-- Input 3: Rules Broken -->
+                    <div class="space-y-3 pt-2 border-t border-slate-700">
+                        <p class="text-white font-medium mb-2">3. Select ALL Rules Broken (Checklist)</p>
                         <div class="grid grid-cols-2 gap-4 text-sm">
                             <!-- Minor Violations (Severity 1) -->
                             <label class="flex items-center space-x-2 text-yellow-300">
-                                <input type="checkbox" name="violation" value="1" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <input type="checkbox" name="violation" value="1" data-violation-name="FRP (Fail Roleplay) / NLR" onchange="suggestPunishment()" class="h-4 w-4 rounded">
                                 <span>FRP (Fail RP) / NLR</span>
                             </label>
                             <label class="flex items-center space-x-2 text-yellow-300">
-                                <input type="checkbox" name="violation" value="1" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <input type="checkbox" name="violation" value="1" data-violation-name="Proper Comms / GTA Driving" onchange="suggestPunishment()" class="h-4 w-4 rounded">
                                 <span>Proper Comms / GTA Driving</span>
                             </label>
                             <!-- Major Violations (Severity 2) -->
                             <label class="flex items-center space-x-2 text-orange-300">
-                                <input type="checkbox" name="violation" value="2" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <input type="checkbox" name="violation" value="2" data-violation-name="RDM (Random Deathmatch) / VDM" onchange="suggestPunishment()" class="h-4 w-4 rounded">
                                 <span>RDM / VDM</span>
                             </label>
                              <label class="flex items-center space-x-2 text-orange-300">
-                                <input type="checkbox" name="violation" value="2" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <input type="checkbox" name="violation" value="2" data-violation-name="Disrespecting Staff" onchange="suggestPunishment()" class="h-4 w-4 rounded">
                                 <span>Disrespecting Staff</span>
                             </label>
                             <!-- Zero Tolerance (Severity 3) -->
                             <label class="flex items-center space-x-2 text-red-400">
-                                <input type="checkbox" name="violation" value="3" onchange="suggestPunishment()" class="h-4 w-4 rounded">
-                                <span>Harassment / Exploiting</span>
+                                <input type="checkbox" name="violation" value="3" data-violation-name="Exploiting / Harassment" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Exploiting / Harassment</span>
                             </label>
                             <label class="flex items-center space-x-2 text-red-400">
-                                <input type="checkbox" name="violation" value="3" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <input type="checkbox" name="violation" value="3" data-violation-name="LTAP (Leaving to Avoid Punishment)" onchange="suggestPunishment()" class="h-4 w-4 rounded">
                                 <span>LTAP (Leaving to Avoid Punishment)</span>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Input 3: History -->
+                    <!-- Input 4: History -->
                      <div class="space-y-2 pt-2 border-t border-slate-700">
-                        <p class="text-white font-medium mb-2">3. Player History & Evasion</p>
+                        <p class="text-white font-medium mb-2">4. Player History & Evasion</p>
                         <div class="grid grid-cols-2 gap-4 text-sm">
                             <label class="flex items-center space-x-2 text-amber-300">
                                 <input type="checkbox" id="isRepeat" onchange="suggestPunishment()" class="h-4 w-4 rounded">
-                                <span>Repeat Offender (Already Warned/Kicked once)</span>
+                                <span>Repeat Offender (Already Warned/Kicked)</span>
                             </label>
                             <label class="flex items-center space-x-2 text-red-500">
                                 <input type="checkbox" id="isEvasion" onchange="suggestPunishment()" class="h-4 w-4 rounded">
@@ -410,25 +426,28 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- Output: Suggestion -->
-                    <div id="suggestionOutput" class="mt-4 p-4 rounded-lg bg-indigo-900/30 border-l-4 border-indigo-500 hidden transition-all duration-300">
-                        <p class="font-bold text-lg text-indigo-300 mb-1 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.275a1.12 1.12 0 010 1.59L13.582 21.001c-.501.501-1.312.501-1.812 0L2.382 11.218a1.12 1.12 0 010-1.59l8.058-8.057a1.12 1.12 0 011.59 0l8.058 8.057z" />
-                            </svg>
-                            Recommended Action:
-                        </p>
-                        <div class="text-white space-y-1">
-                            <p id="suggestedAction" class="text-2xl font-extrabold"></p>
-                            <p id="justification" class="text-sm text-slate-400"></p>
-                            <p id="authorityNote" class="text-sm text-red-300 italic mt-2"></p>
+                    
+                    <!-- Output 5: Suggested Punishments (Clickable) -->
+                    <div id="punishmentSuggestions" class="space-y-2 mt-4 hidden">
+                        <p class="font-bold text-lg text-indigo-300 border-b border-slate-700 pb-2">5. Select Appropriate Action:</p>
+                        <div id="suggestionButtons" class="flex flex-wrap gap-3">
+                            <!-- Buttons will be generated here -->
                         </div>
+                        <p id="authorityWarning" class="text-sm text-red-400 italic mt-2"></p>
                     </div>
 
+                    <!-- Output 6: Generated Message -->
+                    <div id="messageOutput" class="mt-6 p-4 rounded-lg bg-emerald-900/30 border-l-4 border-emerald-500 hidden">
+                        <p class="font-bold text-lg text-emerald-300 mb-2">6. Generated Punishment Message (Copy & Send):</p>
+                        <textarea id="generatedMessage" rows="5" readonly class="w-full p-3 bg-slate-800 border border-emerald-600 rounded-lg text-white font-mono text-sm resize-none"></textarea>
+                        <button onclick="copyMessage()" class="mt-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-500 transition-colors">
+                            Copy Message
+                        </button>
+                        <p id="copyFeedback" class="text-sm text-emerald-400 mt-2 hidden">Copied!</p>
+                    </div>
                 </div>
             </div>
-            <!-- END §4.5 DISCIPLINARY ACTION SUGGESTER -->
+            <!-- END §4.5 STAFF DISCIPLINARY WORKFLOW -->
 
             <!-- No Results Message (Kept here for filtering visibility) -->
             <div id="noResults" class="hidden bg-slate-800 border-l-4 border-amber-500 p-6 rounded-r-lg text-center">
@@ -498,26 +517,48 @@
             }
         ];
 
-        // --- Punishment Suggester Logic Data ---
+        // --- Punishment Workflow Logic Data ---
         // Severity 1: Minor (Warning -> Kick)
         // Severity 2: Major (Kick -> Ban)
         // Severity 3: Zero Tolerance (Temp Ban -> Perm Ban)
         const PUNISHMENT_MATRIX = {
             // [Initial Action, Repeat Action]
-            1: ["Verbal/Written Warning", "Kick"], 
-            2: ["Kick", "Temporary Ban (3-7 Days)"],
-            3: ["Temporary Ban (1-7 Days)", "Permanent Ban"]
+            1: [
+                { action: "Verbal Warning", color: "yellow-600", severity: 1 }, 
+                { action: "Kick", color: "amber-600", severity: 1.5 }
+            ], 
+            2: [
+                { action: "Kick", color: "amber-600", severity: 2 },
+                { action: "Temporary Ban (3-7 Days)", color: "red-600", severity: 2.5 }
+            ],
+            3: [
+                { action: "Temporary Ban (1-7 Days)", color: "red-600", severity: 3 },
+                { action: "Permanent Ban", color: "red-800", severity: 3.5 }
+            ],
+            4: { action: "IMMEDIATE 2-WEEK BAN", color: "red-900", severity: 4 } // Evasion Override
         };
 
         const AUTHORITY_LEVEL = {
-            // 1: Regular Staff (can handle up to Severity 2)
-            // 2: Admin+ (can handle all)
-            Regular: 1,
-            Admin: 2
+            Regular: 1, // Can only issue up to Kick (Severity < 2.5)
+            Admin: 2    // Can issue all
         };
 
+        // --- Punishment Workflow Functions ---
 
-        // --- Punishment Suggester Function ---
+        function clearMessage() {
+            document.getElementById('messageOutput').style.display = 'none';
+            document.getElementById('copyFeedback').classList.add('hidden');
+        }
+
+        function generateButton(action, color, violationList) {
+            const buttonsDiv = document.getElementById('suggestionButtons');
+            const button = document.createElement('button');
+            button.className = `punishment-button px-4 py-2 bg-${color} text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90`;
+            button.textContent = action;
+            button.onclick = () => generatePunishmentMessage(action, violationList);
+            buttonsDiv.appendChild(button);
+        }
+        
         function suggestPunishment() {
             const roleElement = document.getElementById('staffRole');
             const violations = document.querySelectorAll('input[name="violation"]:checked');
@@ -525,220 +566,236 @@
             const isEvasion = document.getElementById('isEvasion').checked;
             const staffAuthority = parseInt(roleElement.value); 
             
-            const outputDiv = document.getElementById('suggestionOutput');
-            const actionText = document.getElementById('suggestedAction');
-            const justificationText = document.getElementById('justification');
-            const authorityNote = document.getElementById('authorityNote');
+            const buttonsDiv = document.getElementById('suggestionButtons');
+            const suggestionsContainer = document.getElementById('punishmentSuggestions');
+            const authorityWarning = document.getElementById('authorityWarning');
+            buttonsDiv.innerHTML = '';
+            authorityWarning.textContent = '';
+            clearMessage();
 
-            outputDiv.style.display = 'block';
-            authorityNote.textContent = '';
-            
             if (violations.length === 0 && !isEvasion) {
-                actionText.textContent = "Please select a rule broken.";
-                justificationText.textContent = "No violation detected.";
-                outputDiv.className = 'mt-4 p-4 rounded-lg bg-slate-700/30 border-l-4 border-slate-500 transition-all duration-300';
+                suggestionsContainer.style.display = 'none';
                 return;
             }
 
+            suggestionsContainer.style.display = 'block';
+
             // 1. Check for Evasion (Highest Priority Override)
             if (isEvasion) {
-                actionText.textContent = "IMMEDIATE 2-WEEK BAN";
-                justificationText.textContent = "This is mandatory for Punishment Evasion (rejoining after a cooldown) as per §3.2.";
-                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
+                const evasion = PUNISHMENT_MATRIX[4];
+                generateButton(evasion.action, evasion.color, ["Punishment Evasion (§3.2)"]);
                 return;
             }
 
             // 2. Determine Maximum Severity
             let maxSeverity = 0;
+            const violationNames = [];
             violations.forEach(v => {
                 const severity = parseInt(v.value);
                 if (severity > maxSeverity) {
                     maxSeverity = severity;
                 }
+                violationNames.push(v.getAttribute('data-violation-name'));
             });
 
-            // If no violation selected, but Evasion is unchecked, shouldn't happen, but safe fallback.
+            // Fallback if no violations are checked, but the function was triggered
             if (maxSeverity === 0) {
-                 actionText.textContent = "No violation selected.";
-                 justificationText.textContent = "Please check the specific rules broken by the player.";
-                 outputDiv.className = 'mt-4 p-4 rounded-lg bg-slate-700/30 border-l-4 border-slate-500 transition-all duration-300';
+                 buttonsDiv.innerHTML = '<p class="text-slate-400">Please select the specific rules broken to generate suggestions.</p>';
                  return;
             }
 
-            // 3. Determine Suggested Action based on Severity and History
-            const punishmentArray = PUNISHMENT_MATRIX[maxSeverity];
-            let suggestedAction = isRepeat ? punishmentArray[1] : punishmentArray[0];
-            let severityName = maxSeverity === 3 ? "Zero Tolerance (Severity 3)" : (maxSeverity === 2 ? "Major Violation (Severity 2)" : "Minor Violation (Severity 1)");
-            
-            outputDiv.className = 'mt-4 p-4 rounded-lg bg-indigo-900/30 border-l-4 border-indigo-500 transition-all duration-300';
+            // 3. Generate Suggested Actions
+            let actionList = [];
 
-            // 4. Check Authority for Zero Tolerance Actions
-            if (maxSeverity === 3 && staffAuthority === AUTHORITY_LEVEL.Regular) {
-                actionText.textContent = "ESCALATE TO ADMIN+";
-                justificationText.textContent = `The highest severity rule broken is: ${severityName}. This level of punishment (${suggestedAction}) requires Admin+ authority.`;
-                authorityNote.textContent = "WARNING: Do NOT issue a Ban. Document the violation and call an Admin+ immediately.";
-                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
-            } else if (isRepeat && maxSeverity === 3) {
-                 // Repeat Zero Tolerance results in Permanent Ban
-                actionText.textContent = "PERMANENT BAN";
-                justificationText.textContent = `The highest severity rule broken is: ${severityName}. The player is a repeat offender, escalating to the maximum penalty.`;
-                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
-            } else {
-                // All other cases (Regular staff handling Minor/Major, Admin+ handling everything)
-                actionText.textContent = suggestedAction.toUpperCase();
-                justificationText.textContent = `The highest severity rule broken is: ${severityName}. The suggested action is the ${isRepeat ? 'second' : 'first'} tier of the progressive disciplinary matrix.`;
+            // Base action for the highest severity
+            const matrix = PUNISHMENT_MATRIX[maxSeverity];
+            
+            // Tier 1: Initial Action
+            if (matrix[0]) {
+                actionList.push(matrix[0]);
             }
-        }
+
+            // Tier 2: Escalation (if repeat offender) or a slightly higher tier for multiple offenses
+            if (isRepeat && matrix[1]) {
+                actionList.push(matrix[1]);
+            } else if (maxSeverity === 1 && violations.length >= 2 && matrix[1]) {
+                 // Suggest kick if multiple minor violations occurred, even without official 'repeat' flag
+                 actionList.push(matrix[1]);
+            } else if (maxSeverity === 2 && violations.length >= 2 && matrix[1]) {
+                 // Suggest Ban if multiple major violations
+                 actionList.push(matrix[1]);
+            }
+            // If the max severity is 3 (Zero Tolerance), always include the Permanent Ban option
+            if (maxSeverity === 3 && matrix[1]) {
+                actionList.push(matrix[1]);
+            }
 
 
-        // --- Core Quiz Functions ---
-        function renderQuiz() {
-            const container = document.getElementById('quizContainer');
-            container.innerHTML = ''; // Clear previous content
+            // 4. Generate Buttons and Check Authority
+            let authorityIssue = false;
+            let displayedActions = new Set(); // Use a set to prevent duplicate buttons (e.g., two checks lead to "Kick")
 
-            quizQuestions.forEach((q, index) => {
-                const questionHtml = `
-                    <div class="bg-slate-800 p-4 rounded-lg shadow-inner border border-slate-700" data-question-index="${index}">
-                        <p class="text-base font-semibold text-white mb-3">Q${index + 1}: ${q.question}</p>
-                        <div class="space-y-2">
-                            ${q.options.map(option => `
-                                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-md hover:bg-slate-700/50 transition-colors">
-                                    <input type="radio" name="question-${index}" value="${option}" class="text-indigo-500 focus:ring-indigo-500 h-4 w-4 bg-slate-600 border-slate-600">
-                                    <span class="text-slate-300 text-sm">${option}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += questionHtml;
-            });
-        }
+            actionList.forEach(item => {
+                if (item.severity >= 2.5 && staffAuthority === AUTHORITY_LEVEL.Regular) {
+                    authorityIssue = true;
+                }
 
-        function submitQuiz() {
-            let score = 0;
-            const totalQuestions = quizQuestions.length;
-            const resultDiv = document.getElementById('quizResult');
-            
-            quizQuestions.forEach((q, index) => {
-                const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-                const questionDiv = document.querySelector(`[data-question-index="${index}"]`);
-                
-                // Clear previous feedback styles
-                questionDiv.classList.remove('border-green-500', 'border-red-500', 'border-yellow-500');
-
-                if (selectedOption) {
-                    if (selectedOption.value === q.answer) {
-                        score++;
-                        questionDiv.classList.add('border-green-500');
-                    } else {
-                        questionDiv.classList.add('border-red-500');
+                if (!displayedActions.has(item.action)) {
+                    // Only generate the button if the staff has the authority or if they are Admin+
+                    if (item.severity < 2.5 || staffAuthority === AUTHORITY_LEVEL.Admin) {
+                        generateButton(item.action, item.color, violationNames);
+                        displayedActions.add(item.action);
+                    } else if (staffAuthority === AUTHORITY_LEVEL.Regular && item.severity >= 2.5) {
+                        authorityWarning.textContent = "Your current role (Regular Staff) cannot issue Bans. Please escalate this action to an Admin+.";
                     }
-                } else {
-                    // Mark unanswered questions
-                    questionDiv.classList.add('border-yellow-500');
                 }
             });
 
-            const requiredScore = 3; 
-            const passed = score >= requiredScore;
-            
-            let resultHtml = `
-                <p class="text-xl font-bold mb-2">Quiz Result</p>
-                <p class="text-lg">You scored: <span class="font-extrabold">${score} / ${totalQuestions}</span></p>
-            `;
+            if (buttonsDiv.innerHTML === '' && authorityIssue) {
+                 // Case where only high-severity bans were suggested and staff role is Regular
+                 buttonsDiv.innerHTML = '<p class="text-slate-400">Escalate this incident immediately (See warning below).</p>';
+            }
+        }
 
-            if (passed) {
-                resultDiv.className = 'mt-6 p-4 rounded-lg bg-green-900/40 border-l-4 border-green-500';
-                resultHtml += `<p class="text-green-300 font-semibold mt-2">🎉 Congratulations! You passed the quiz. Keep up the good work!</p>`;
+
+        function generatePunishmentMessage(action, violationList) {
+            const user = document.getElementById('targetUser').value.trim();
+            const violationReason = violationList.join(' and ');
+            const appealCode = "TgCp5Cv7Wm"; // Updated communications code
+
+            let message = `Hello ${user},\n\n`;
+
+            if (action.includes("Warning")) {
+                message += `You are receiving a ${action} for breaking the rules (${violationReason}). Please review the staff handbook (Rules §3.0) to avoid further disciplinary action.`;
             } else {
-                resultDiv.className = 'mt-6 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500';
-                resultHtml += `<p class="text-red-300 font-semibold mt-2">⚠️ You did not pass. You need ${requiredScore} correct answers. Please review sections 1.0 and 3.0 and try again.</p>`;
+                // If it's a Kick or Ban, use filter-safe language and include the appeal code.
+                message += `You are being ${action.toUpperCase()} for violating our rules, specifically for ${violationReason}. This action is final in-game.\n\n`;
+                message += `You can appeal this by opening a ticket in our communications server. Our code is ${appealCode} (case sensitive).`;
             }
 
-            resultDiv.innerHTML = resultHtml;
-            resultDiv.style.display = 'block';
-
-            // Scroll to the result
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('generatedMessage').value = message;
+            document.getElementById('messageOutput').style.display = 'block';
         }
 
-        function resetQuiz() {
-            // Re-render the quiz to clear all selections and styles
-            renderQuiz(); 
-            document.getElementById('quizResult').style.display = 'none';
+        function copyMessage() {
+            const textarea = document.getElementById('generatedMessage');
+            textarea.select();
+            document.execCommand('copy');
+            
+            const feedback = document.getElementById('copyFeedback');
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 2000);
         }
 
 
-        // --- Existing Functions (retained) ---
+        // --- General Handbook Functions (Filtering, Glossary, Init) ---
+
+        function toggleDefinition(id) {
+            const definition = document.getElementById(id + '-definition');
+            if (definition.style.display === 'block') {
+                definition.style.display = 'none';
+            } else {
+                definition.style.display = 'block';
+            }
+        }
 
         function filterContent() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
-            const sections = document.getElementsByClassName('content-section');
+            const sections = document.querySelectorAll('.content-section');
             const noResults = document.getElementById('noResults');
-            let hasVisibleContent = false;
+            let found = false;
 
-            for (let i = 0; i < sections.length; i++) {
-                const section = sections[i];
-                const text = section.textContent || section.innerText;
-
-                if (text.toLowerCase().indexOf(filter) > -1) {
-                    section.style.display = "";
-                    hasVisibleContent = true;
-                } else {
-                    section.style.display = "none";
-                }
-            }
-
-            if (!hasVisibleContent && filter.length > 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        }
-        
-        // --- JavaScript for Scroll Behavior (Quick Search Button) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const header = document.getElementById('mainHeader');
-            const jumpButton = document.getElementById('scrollToSearch');
-            const searchInput = document.getElementById('searchInput');
-            
-            // Render the quiz and calculate initial suggestion on load
-            renderQuiz();
-            suggestPunishment(); // Initialize the calculator state
-
-            // Function to smoothly scroll and focus the search bar
-            window.jumpToHeader = function() {
-                header.scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => {
-                    searchInput.focus();
-                }, 500); 
-            }
-
-            window.addEventListener('scroll', () => {
-                const scrollThreshold = header.offsetHeight;
-                if (window.scrollY > scrollThreshold) {
-                    jumpButton.style.opacity = '1';
-                    jumpButton.classList.remove('scale-0', 'opacity-0');
-                    jumpButton.classList.add('scale-100');
-                } else {
-                    jumpButton.style.opacity = '0';
-                    jumpButton.classList.remove('scale-100');
-                    jumpButton.classList.add('scale-0', 'opacity-0');
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                const sectionVisible = text.includes(filter) || filter === '';
+                section.style.display = sectionVisible ? 'block' : 'none';
+                if (sectionVisible) {
+                    found = true;
                 }
             });
-        });
 
-        // --- JavaScript for Glossary Toggle ---
-        function toggleDefinition(termId) {
-            const definitionElement = document.getElementById(termId + '-definition');
-            if (definitionElement.style.display === 'block') {
-                definitionElement.style.display = 'none';
+            noResults.style.display = found ? 'none' : 'block';
+        }
+
+        function jumpToHeader() {
+            document.getElementById('searchInput').focus();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // --- Quiz Functions ---
+        function loadQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            
+            quizQuestions.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'p-4 border border-slate-700 rounded-lg bg-slate-800 shadow-md';
+                qDiv.innerHTML = `
+                    <p class="font-semibold text-white mb-3">Q${index + 1}: ${q.question}</p>
+                    <div class="space-y-2 text-sm">
+                        ${q.options.map(option => `
+                            <label class="flex items-center space-x-2 text-slate-300">
+                                <input type="radio" name="q${index}" value="${option}" class="h-4 w-4 text-indigo-500 bg-slate-700 border-slate-600 focus:ring-indigo-500">
+                                <span>${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let correctAnswers = 0;
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.innerHTML = '';
+
+            quizQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && selectedOption.value === q.answer) {
+                    correctAnswers++;
+                }
+            });
+
+            resultDiv.classList.remove('hidden', 'bg-red-900/30', 'bg-green-900/30');
+            resultDiv.classList.add(correctAnswers >= 3 ? 'bg-green-900/30' : 'bg-red-900/30');
+            resultDiv.classList.add(correctAnswers >= 3 ? 'border-green-500' : 'border-red-500');
+            resultDiv.classList.add('border-l-4');
+
+            if (correctAnswers >= 3) {
+                resultDiv.innerHTML = `
+                    <p class="text-2xl font-bold text-green-300">🎉 Quiz Passed!</p>
+                    <p class="text-white mt-2">You answered ${correctAnswers} out of ${quizQuestions.length} questions correctly. You demonstrate solid knowledge of the core rules.</p>
+                `;
             } else {
-                document.querySelectorAll('.glossary-definition').forEach(d => d.style.display = 'none'); // Close others
-                definitionElement.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <p class="text-2xl font-bold text-red-300">🚨 Quiz Failed.</p>
+                    <p class="text-white mt-2">You answered ${correctAnswers} out of ${quizQuestions.length} questions correctly. Please review the handbook sections and try again.</p>
+                `;
             }
         }
+
+        function resetQuiz() {
+            document.getElementById('quizResult').classList.add('hidden');
+            loadQuiz();
+        }
+
+        // --- Initialization ---
+        window.onload = () => {
+            loadQuiz();
+            
+            // Show the scroll-to-search button after a short delay
+            setTimeout(() => {
+                document.getElementById('scrollToSearch').classList.remove('opacity-0', 'scale-0');
+                document.getElementById('scrollToSearch').classList.add('opacity-100', 'scale-100');
+            }, 500);
+        };
     </script>
 </body>
 </html>
