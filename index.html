@@ -29,11 +29,35 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
+        /* Style for glossary items to make them look clickable */
+        .glossary-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .glossary-item:hover {
+            background-color: #1e293b; /* Slate 800 hover */
+        }
+        .glossary-definition {
+            display: none;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            border-left: 3px solid #6366f1; /* Indigo 500 */
+        }
+        /* Custom style for checklist inputs */
+        input[type='checkbox'] {
+            background-color: #1e293b; /* Slate 800 */
+            border-color: #475569; /* Slate 600 */
+            border-radius: 4px;
+        }
+        input[type='checkbox']:checked {
+            background-color: #6366f1; /* Indigo 500 */
+            border-color: #6366f1;
+        }
     </style>
 </head>
 <body class="min-h-screen selection:bg-indigo-500 selection:text-white">
 
-    <!-- Quick Search Floating Button (Now larger and labeled) -->
+    <!-- Quick Search Floating Button -->
     <button id="scrollToSearch" class="fixed bottom-6 right-6 px-6 py-3 bg-indigo-600 text-white font-bold rounded-full shadow-2xl hover:bg-indigo-500 transition-all duration-300 transform scale-0 opacity-0 z-50 focus:outline-none focus:ring-4 focus:ring-indigo-500/50 flex items-center" onclick="jumpToHeader()" aria-label="Quick Search Handbook">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -43,7 +67,7 @@
 
     <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Header & Search Bar (No longer sticky) -->
+        <!-- Header & Search Bar -->
         <header id="mainHeader" class="bg-slate-800 shadow-2xl rounded-2xl p-8 mb-10 border-t-4 border-indigo-500">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                 <div>
@@ -212,19 +236,19 @@
                                 </thead>
                                 <tbody class="bg-slate-800 divide-y divide-slate-700 text-sm">
                                     <!-- ZERO TOLERANCE -->
-                                    <tr>
+                                    <tr data-severity="3">
                                         <td class="px-4 py-3">
-                                            <span class="text-red-400 font-bold block mb-1">A. ZERO TOLERANCE</span>
-                                            <span class="text-slate-400 text-xs">Exploiting/Glitching, Harassment, Discrimination, LTAP (Leaving to Avoid Punishment), Severe FRP.</span>
+                                            <span class="text-red-400 font-bold block mb-1">A. ZERO TOLERANCE (Severity 3)</span>
+                                            <span class="text-slate-400 text-xs">Exploiting/Glitching, Harassment, Discrimination, LTAP, Severe FRP.</span>
                                         </td>
                                         <td class="px-4 py-3 text-red-300 font-bold">Temporary Ban (1-7 Days) → Permanent Ban</td>
                                         <td class="px-4 py-3 text-slate-300 bg-red-900/20 border-l-2 border-red-500">Admin+ Only</td>
                                     </tr>
                                     
                                     <!-- MAJOR VIOLATIONS -->
-                                    <tr>
+                                    <tr data-severity="2">
                                         <td class="px-4 py-3">
-                                            <span class="text-orange-400 font-bold block mb-1">B. MAJOR VIOLATIONS</span>
+                                            <span class="text-orange-400 font-bold block mb-1">B. MAJOR VIOLATIONS (Severity 2)</span>
                                             <span class="text-slate-400 text-xs">RDM (Random Deathmatch), VDM (Vehicle Deathmatch), Disrespecting Staff.</span>
                                         </td>
                                         <td class="px-4 py-3 text-orange-300">Kick → Ban (on repeat)</td>
@@ -232,9 +256,9 @@
                                     </tr>
 
                                     <!-- MINOR VIOLATIONS -->
-                                    <tr>
+                                    <tr data-severity="1">
                                         <td class="px-4 py-3">
-                                            <span class="text-yellow-400 font-bold block mb-1">C. MINOR VIOLATIONS</span>
+                                            <span class="text-yellow-400 font-bold block mb-1">C. MINOR VIOLATIONS (Severity 1)</span>
                                             <span class="text-slate-400 text-xs">FRP (Fail RP), Proper Comms (Spam/Mic Spam), GTA Driving, NLR (New Life Rule).</span>
                                         </td>
                                         <td class="px-4 py-3 text-yellow-300">Verbal/Written Warning → Kick (on repeat)</td>
@@ -256,11 +280,188 @@
                 </div>
             </div>
 
-            <!-- No Results Message -->
+            <!-- §4.0 ACRONYM AND COMMAND GLOSSARY -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-emerald-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-emerald-500/10 text-emerald-400 py-1 px-3 rounded-md text-lg mr-3">§4.0</span>
+                    Acronym & Command Glossary
+                </h2>
+
+                <p class="text-slate-400 mb-6">Click on a term below to see its definition and relevance to staff duty.</p>
+
+                <div id="glossaryList" class="space-y-2 text-slate-300 bg-slate-900 p-4 rounded-xl border border-slate-700">
+                    <!-- Glossary Item 1: FRP -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('FRP')">
+                        <strong class="text-emerald-300">FRP</strong> (Fail Roleplay)
+                        <div id="FRP-definition" class="glossary-definition">
+                            <p class="text-sm">The act of breaking immersion by failing to adhere to the roleplay standards of the server (e.g., ignoring fear, running into a clearly hostile situation). **Punishment:** Minor Violation.</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 2: NLR -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('NLR')">
+                        <strong class="text-emerald-300">NLR</strong> (New Life Rule)
+                        <div id="NLR-definition" class="glossary-definition">
+                            <p class="text-sm">Upon death, a player loses all memory of the incident that led to their death. They cannot return to the scene for 15 minutes. **Punishment:** Minor Violation.</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 3: RDM -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('RDM')">
+                        <strong class="text-emerald-300">RDM</strong> (Random Deathmatch)
+                        <div id="RDM-definition" class="glossary-definition">
+                            <p class="text-sm">Killing another player without valid roleplay reason or initiation. **Punishment:** Major Violation.</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 4: LTAP -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('LTAP')">
+                        <strong class="text-emerald-300">LTAP</strong> (Leaving to Avoid Punishment)
+                        <div id="LTAP-definition" class="glossary-definition">
+                            <p class="text-sm">A player disconnecting from the game after a rule break to avoid staff intervention or a punishment. **Punishment:** Zero Tolerance (Immediate Ban).</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 5: 10-7 -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('10-7')">
+                        <strong class="text-emerald-300">10-7</strong> (Ten-Seven)
+                        <div id="10-7-definition" class="glossary-definition">
+                            <p class="text-sm">Staff radio code for **Off-Duty / Civilian Role**. Remember: DO NOT use admin commands (except :help/chat) while 10-7.</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 6: :view -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('VIEW')">
+                        <code class="text-pink-400">:view [user]</code>
+                        <div id="VIEW-definition" class="glossary-definition">
+                            <p class="text-sm">Staff command to enter Spectator Mode and observe a player without interfering with their RP. Primary tool for investigation.</p>
+                        </div>
+                    </div>
+                    <!-- Glossary Item 7: :to -->
+                    <div class="glossary-item p-2 rounded-lg" onclick="toggleDefinition('TO')">
+                        <code class="text-pink-400">:to [user]</code>
+                        <div id="TO-definition" class="glossary-definition">
+                            <p class="text-sm">Staff command to teleport to a player's location. Must be used carefully and land in a **safe, non-disruptive location**.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END §4.0 ACRONYM AND COMMAND GLOSSARY -->
+            
+            <!-- §4.5 DISCIPLINARY ACTION SUGGESTER (NEW FEATURE) -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-pink-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-pink-500/10 text-pink-400 py-1 px-3 rounded-md text-lg mr-3">§4.5</span>
+                    Disciplinary Action Suggester
+                </h2>
+                <p class="text-slate-400 mb-6">Use this tool to find the correct, consistent punishment based on the rules broken and your current staff authority.</p>
+
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-6">
+                    <!-- Input 1: Staff Role -->
+                    <div class="space-y-2">
+                        <label for="staffRole" class="text-white font-medium block">1. Your Current Staff Role (Authority)</label>
+                        <select id="staffRole" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 transition-colors" onchange="suggestPunishment()">
+                            <option value="1">Regular Staff (Minor/Major Violations)</option>
+                            <option value="2">Admin+ (All Violations, including Zero Tolerance)</option>
+                        </select>
+                        <p class="text-xs text-slate-500">This affects your power to issue Bans (Severity 3 actions).</p>
+                    </div>
+
+                    <!-- Input 2: Rules Broken -->
+                    <div class="space-y-3">
+                        <p class="text-white font-medium mb-2">2. Select ALL Rules Broken (Checklist)</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <!-- Minor Violations (Severity 1) -->
+                            <label class="flex items-center space-x-2 text-yellow-300">
+                                <input type="checkbox" name="violation" value="1" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>FRP (Fail RP) / NLR</span>
+                            </label>
+                            <label class="flex items-center space-x-2 text-yellow-300">
+                                <input type="checkbox" name="violation" value="1" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Proper Comms / GTA Driving</span>
+                            </label>
+                            <!-- Major Violations (Severity 2) -->
+                            <label class="flex items-center space-x-2 text-orange-300">
+                                <input type="checkbox" name="violation" value="2" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>RDM / VDM</span>
+                            </label>
+                             <label class="flex items-center space-x-2 text-orange-300">
+                                <input type="checkbox" name="violation" value="2" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Disrespecting Staff</span>
+                            </label>
+                            <!-- Zero Tolerance (Severity 3) -->
+                            <label class="flex items-center space-x-2 text-red-400">
+                                <input type="checkbox" name="violation" value="3" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Harassment / Exploiting</span>
+                            </label>
+                            <label class="flex items-center space-x-2 text-red-400">
+                                <input type="checkbox" name="violation" value="3" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>LTAP (Leaving to Avoid Punishment)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Input 3: History -->
+                     <div class="space-y-2 pt-2 border-t border-slate-700">
+                        <p class="text-white font-medium mb-2">3. Player History & Evasion</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <label class="flex items-center space-x-2 text-amber-300">
+                                <input type="checkbox" id="isRepeat" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Repeat Offender (Already Warned/Kicked once)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 text-red-500">
+                                <input type="checkbox" id="isEvasion" onchange="suggestPunishment()" class="h-4 w-4 rounded">
+                                <span>Punishment Evasion (Rejoining after kick/ban)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Output: Suggestion -->
+                    <div id="suggestionOutput" class="mt-4 p-4 rounded-lg bg-indigo-900/30 border-l-4 border-indigo-500 hidden transition-all duration-300">
+                        <p class="font-bold text-lg text-indigo-300 mb-1 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.275a1.12 1.12 0 010 1.59L13.582 21.001c-.501.501-1.312.501-1.812 0L2.382 11.218a1.12 1.12 0 010-1.59l8.058-8.057a1.12 1.12 0 011.59 0l8.058 8.057z" />
+                            </svg>
+                            Recommended Action:
+                        </p>
+                        <div class="text-white space-y-1">
+                            <p id="suggestedAction" class="text-2xl font-extrabold"></p>
+                            <p id="justification" class="text-sm text-slate-400"></p>
+                            <p id="authorityNote" class="text-sm text-red-300 italic mt-2"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END §4.5 DISCIPLINARY ACTION SUGGESTER -->
+
+            <!-- No Results Message (Kept here for filtering visibility) -->
             <div id="noResults" class="hidden bg-slate-800 border-l-4 border-amber-500 p-6 rounded-r-lg text-center">
                 <p class="text-white text-lg font-medium">No results found.</p>
                 <p class="text-slate-400">Try adjusting your search terms.</p>
             </div>
+
+            <!-- §5.0 RULE KNOWLEDGE QUIZ -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-yellow-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-yellow-500/10 text-yellow-400 py-1 px-3 rounded-md text-lg mr-3">§5.0</span>
+                    Rule Knowledge Quiz
+                </h2>
+                <p class="text-slate-400 mb-6">Test your knowledge on the core staff and player rules below. You must answer 3 out of 4 questions correctly to pass.</p>
+
+                <div id="quizContainer" class="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-6">
+                    <!-- Questions will be dynamically inserted here -->
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button id="submitQuiz" onclick="submitQuiz()" class="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 transition-colors shadow-md">
+                        Submit Answers
+                    </button>
+                    <button id="resetQuiz" onclick="resetQuiz()" class="w-full sm:w-auto px-6 py-3 bg-slate-600 text-white font-bold rounded-lg hover:bg-slate-500 transition-colors shadow-md">
+                        Reset Quiz
+                    </button>
+                </div>
+                
+                <div id="quizResult" class="mt-6 p-4 rounded-lg hidden">
+                    <!-- Result message appears here -->
+                </div>
+            </div>
+            <!-- END §5.0 QUIZ -->
 
         </main>
         
@@ -273,6 +474,203 @@
     </div>
 
     <script>
+        // --- Quiz Data ---
+        const quizQuestions = [
+            {
+                question: "What is the punishment for asking for a promotion?",
+                options: ["Verbal Warning", "3-Day Suspension", "Immediate Termination"],
+                answer: "Immediate Termination"
+            },
+            {
+                question: "If a player disconnects to avoid punishment (LTAP), what is the MINIMUM resulting ban duration?",
+                options: ["Kick", "2-Week Ban", "Permanent Ban"],
+                answer: "2-Week Ban"
+            },
+            {
+                question: "What must a staff member do immediately after logging a kick or ban?",
+                options: ["Log the action in Melony", "Call higher staff", "Take a screenshot"],
+                answer: "Log the action in Melony"
+            },
+            {
+                question: "What is the minimum weekly quota (hours) for a regular staff member?",
+                options: ["4 Hours", "5 Hours", "6 Hours"],
+                answer: "6 Hours"
+            }
+        ];
+
+        // --- Punishment Suggester Logic Data ---
+        // Severity 1: Minor (Warning -> Kick)
+        // Severity 2: Major (Kick -> Ban)
+        // Severity 3: Zero Tolerance (Temp Ban -> Perm Ban)
+        const PUNISHMENT_MATRIX = {
+            // [Initial Action, Repeat Action]
+            1: ["Verbal/Written Warning", "Kick"], 
+            2: ["Kick", "Temporary Ban (3-7 Days)"],
+            3: ["Temporary Ban (1-7 Days)", "Permanent Ban"]
+        };
+
+        const AUTHORITY_LEVEL = {
+            // 1: Regular Staff (can handle up to Severity 2)
+            // 2: Admin+ (can handle all)
+            Regular: 1,
+            Admin: 2
+        };
+
+
+        // --- Punishment Suggester Function ---
+        function suggestPunishment() {
+            const roleElement = document.getElementById('staffRole');
+            const violations = document.querySelectorAll('input[name="violation"]:checked');
+            const isRepeat = document.getElementById('isRepeat').checked;
+            const isEvasion = document.getElementById('isEvasion').checked;
+            const staffAuthority = parseInt(roleElement.value); 
+            
+            const outputDiv = document.getElementById('suggestionOutput');
+            const actionText = document.getElementById('suggestedAction');
+            const justificationText = document.getElementById('justification');
+            const authorityNote = document.getElementById('authorityNote');
+
+            outputDiv.style.display = 'block';
+            authorityNote.textContent = '';
+            
+            if (violations.length === 0 && !isEvasion) {
+                actionText.textContent = "Please select a rule broken.";
+                justificationText.textContent = "No violation detected.";
+                outputDiv.className = 'mt-4 p-4 rounded-lg bg-slate-700/30 border-l-4 border-slate-500 transition-all duration-300';
+                return;
+            }
+
+            // 1. Check for Evasion (Highest Priority Override)
+            if (isEvasion) {
+                actionText.textContent = "IMMEDIATE 2-WEEK BAN";
+                justificationText.textContent = "This is mandatory for Punishment Evasion (rejoining after a cooldown) as per §3.2.";
+                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
+                return;
+            }
+
+            // 2. Determine Maximum Severity
+            let maxSeverity = 0;
+            violations.forEach(v => {
+                const severity = parseInt(v.value);
+                if (severity > maxSeverity) {
+                    maxSeverity = severity;
+                }
+            });
+
+            // If no violation selected, but Evasion is unchecked, shouldn't happen, but safe fallback.
+            if (maxSeverity === 0) {
+                 actionText.textContent = "No violation selected.";
+                 justificationText.textContent = "Please check the specific rules broken by the player.";
+                 outputDiv.className = 'mt-4 p-4 rounded-lg bg-slate-700/30 border-l-4 border-slate-500 transition-all duration-300';
+                 return;
+            }
+
+            // 3. Determine Suggested Action based on Severity and History
+            const punishmentArray = PUNISHMENT_MATRIX[maxSeverity];
+            let suggestedAction = isRepeat ? punishmentArray[1] : punishmentArray[0];
+            let severityName = maxSeverity === 3 ? "Zero Tolerance (Severity 3)" : (maxSeverity === 2 ? "Major Violation (Severity 2)" : "Minor Violation (Severity 1)");
+            
+            outputDiv.className = 'mt-4 p-4 rounded-lg bg-indigo-900/30 border-l-4 border-indigo-500 transition-all duration-300';
+
+            // 4. Check Authority for Zero Tolerance Actions
+            if (maxSeverity === 3 && staffAuthority === AUTHORITY_LEVEL.Regular) {
+                actionText.textContent = "ESCALATE TO ADMIN+";
+                justificationText.textContent = `The highest severity rule broken is: ${severityName}. This level of punishment (${suggestedAction}) requires Admin+ authority.`;
+                authorityNote.textContent = "WARNING: Do NOT issue a Ban. Document the violation and call an Admin+ immediately.";
+                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
+            } else if (isRepeat && maxSeverity === 3) {
+                 // Repeat Zero Tolerance results in Permanent Ban
+                actionText.textContent = "PERMANENT BAN";
+                justificationText.textContent = `The highest severity rule broken is: ${severityName}. The player is a repeat offender, escalating to the maximum penalty.`;
+                outputDiv.className = 'mt-4 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500 transition-all duration-300';
+            } else {
+                // All other cases (Regular staff handling Minor/Major, Admin+ handling everything)
+                actionText.textContent = suggestedAction.toUpperCase();
+                justificationText.textContent = `The highest severity rule broken is: ${severityName}. The suggested action is the ${isRepeat ? 'second' : 'first'} tier of the progressive disciplinary matrix.`;
+            }
+        }
+
+
+        // --- Core Quiz Functions ---
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = ''; // Clear previous content
+
+            quizQuestions.forEach((q, index) => {
+                const questionHtml = `
+                    <div class="bg-slate-800 p-4 rounded-lg shadow-inner border border-slate-700" data-question-index="${index}">
+                        <p class="text-base font-semibold text-white mb-3">Q${index + 1}: ${q.question}</p>
+                        <div class="space-y-2">
+                            ${q.options.map(option => `
+                                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-md hover:bg-slate-700/50 transition-colors">
+                                    <input type="radio" name="question-${index}" value="${option}" class="text-indigo-500 focus:ring-indigo-500 h-4 w-4 bg-slate-600 border-slate-600">
+                                    <span class="text-slate-300 text-sm">${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += questionHtml;
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const totalQuestions = quizQuestions.length;
+            const resultDiv = document.getElementById('quizResult');
+            
+            quizQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                const questionDiv = document.querySelector(`[data-question-index="${index}"]`);
+                
+                // Clear previous feedback styles
+                questionDiv.classList.remove('border-green-500', 'border-red-500', 'border-yellow-500');
+
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                        questionDiv.classList.add('border-green-500');
+                    } else {
+                        questionDiv.classList.add('border-red-500');
+                    }
+                } else {
+                    // Mark unanswered questions
+                    questionDiv.classList.add('border-yellow-500');
+                }
+            });
+
+            const requiredScore = 3; 
+            const passed = score >= requiredScore;
+            
+            let resultHtml = `
+                <p class="text-xl font-bold mb-2">Quiz Result</p>
+                <p class="text-lg">You scored: <span class="font-extrabold">${score} / ${totalQuestions}</span></p>
+            `;
+
+            if (passed) {
+                resultDiv.className = 'mt-6 p-4 rounded-lg bg-green-900/40 border-l-4 border-green-500';
+                resultHtml += `<p class="text-green-300 font-semibold mt-2">🎉 Congratulations! You passed the quiz. Keep up the good work!</p>`;
+            } else {
+                resultDiv.className = 'mt-6 p-4 rounded-lg bg-red-900/40 border-l-4 border-red-500';
+                resultHtml += `<p class="text-red-300 font-semibold mt-2">⚠️ You did not pass. You need ${requiredScore} correct answers. Please review sections 1.0 and 3.0 and try again.</p>`;
+            }
+
+            resultDiv.innerHTML = resultHtml;
+            resultDiv.style.display = 'block';
+
+            // Scroll to the result
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetQuiz() {
+            // Re-render the quiz to clear all selections and styles
+            renderQuiz(); 
+            document.getElementById('quizResult').style.display = 'none';
+        }
+
+
+        // --- Existing Functions (retained) ---
+
         function filterContent() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
@@ -299,40 +697,48 @@
             }
         }
         
-        // --- New JavaScript for Scroll Behavior ---
+        // --- JavaScript for Scroll Behavior (Quick Search Button) ---
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('mainHeader');
             const jumpButton = document.getElementById('scrollToSearch');
             const searchInput = document.getElementById('searchInput');
             
+            // Render the quiz and calculate initial suggestion on load
+            renderQuiz();
+            suggestPunishment(); // Initialize the calculator state
+
             // Function to smoothly scroll and focus the search bar
             window.jumpToHeader = function() {
-                // Scroll the header into view
                 header.scrollIntoView({ behavior: 'smooth' });
-                
-                // Delay focusing until scroll is almost complete for better UX
                 setTimeout(() => {
                     searchInput.focus();
                 }, 500); 
             }
 
             window.addEventListener('scroll', () => {
-                // Determine if the user has scrolled past the header height + 50px buffer
                 const scrollThreshold = header.offsetHeight;
-
                 if (window.scrollY > scrollThreshold) {
-                    // Show the button
                     jumpButton.style.opacity = '1';
                     jumpButton.classList.remove('scale-0', 'opacity-0');
                     jumpButton.classList.add('scale-100');
                 } else {
-                    // Hide the button
                     jumpButton.style.opacity = '0';
                     jumpButton.classList.remove('scale-100');
                     jumpButton.classList.add('scale-0', 'opacity-0');
                 }
             });
         });
+
+        // --- JavaScript for Glossary Toggle ---
+        function toggleDefinition(termId) {
+            const definitionElement = document.getElementById(termId + '-definition');
+            if (definitionElement.style.display === 'block') {
+                definitionElement.style.display = 'none';
+            } else {
+                document.querySelectorAll('.glossary-definition').forEach(d => d.style.display = 'none'); // Close others
+                definitionElement.style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
