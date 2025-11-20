@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TXRP Staff Team Official HandBook</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a clean, modern, dark look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        .highlight {
+            background-color: rgba(251, 191, 36, 0.2); /* Amber highlight */
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-indigo-500 selection:text-white">
+
+    <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Header & Search Bar -->
+        <header class="bg-slate-800 shadow-2xl rounded-2xl p-8 mb-10 sticky top-4 z-50 border-t-4 border-indigo-500">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">👑 TXRP Staff HandBook</h1>
+                    <p class="text-slate-400 font-medium">Official Operations & Conduct Manual</p>
+                </div>
+                <div class="mt-4 md:mt-0 bg-slate-900 px-4 py-2 rounded-lg border border-slate-700">
+                    <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Maintained By</p>
+                    <p class="text-indigo-400 font-semibold">Zainbtw (Developer)</p>
+                </div>
+            </div>
+
+            <!-- Document Notice -->
+            <div class="mb-6 bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                <p class="text-amber-200 text-sm font-medium flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    This document is subject to change at any time and may be updated by Zainbtw.
+                </p>
+            </div>
+
+            <!-- Search Input -->
+            <div class="relative">
+                <input type="text" id="searchInput" onkeyup="filterContent()" 
+                       placeholder="🔍 Search rules, punishments, or vehicle policies..."
+                       class="w-full p-4 pl-12 bg-slate-900 border-2 border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-lg placeholder-slate-500 text-white shadow-inner">
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <main id="contentContainer" class="space-y-8">
+
+            <!-- §1.0 GENERAL POLICY -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-blue-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-blue-500/10 text-blue-400 py-1 px-3 rounded-md text-lg mr-3">§1.0</span>
+                    General Policy & Conduct
+                </h2>
+                
+                <div class="space-y-8">
+                    <!-- 1.1 Core Rules -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-blue-300 mb-3">§1.1 - Core Staff Rules</h3>
+                        <ul class="space-y-3 text-slate-300 list-disc pl-5">
+                            <li><strong class="text-white">Follow All Rules:</strong> Mandatory adherence to all TXRP policies and protocols at all times.</li>
+                            <li><strong class="text-white">Professional Communication:</strong> Use proper grammar and spelling (SPAG) in all official chats/tickets.</li>
+                            <li><strong class="text-white">Be Impartial:</strong> Show professionalism, maturity, and absolute fairness.</li>
+                            <li><strong class="text-red-400">Off-Duty Restriction:</strong> <strong>NEVER</strong> use administrative commands (e.g., :to, :kick, :ban) while operating as a civilian (10-7).</li>
+                            <li><strong class="text-white">Chain of Command:</strong> Respect and follow directives from higher-ranking officials.</li>
+                            <li><strong class="text-white">Action Logging:</strong> <span class="text-red-400 font-bold">MANDATORY:</span> All actions (warn/kick/ban) must be logged in the Melony Platform.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 1.2 Appearance -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-blue-300 mb-3">§1.2 - Staff Duty Appearance</h3>
+                        <ul class="space-y-2 text-slate-300 list-disc pl-5">
+                            <li><strong class="text-white">Hair/Beard:</strong> Natural colors only (Black, Brown, Gray).</li>
+                            <li><strong class="text-white">Accessories:</strong> No excessive or high-value jewelry.</li>
+                            <li><strong class="text-white">Package:</strong> You must use the <strong>1.0 ("Blocky") package</strong> for consistent identification.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 1.4 Quotas -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-blue-300 mb-3">§1.4 - Weekly Quota Requirements</h3>
+                        <div class="overflow-x-auto rounded-lg border border-slate-700">
+                            <table class="min-w-full divide-y divide-slate-700">
+                                <thead class="bg-slate-900">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-400 uppercase">Team</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-400 uppercase">Requirement</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-slate-800 divide-y divide-slate-700 text-sm">
+                                    <tr><td class="px-4 py-3 text-white font-medium">Executive/Ownership</td><td class="px-4 py-3 text-emerald-400">Quota Exempt (3 Tickets/Week)</td></tr>
+                                    <tr><td class="px-4 py-3 text-white font-medium">Directives Team</td><td class="px-4 py-3">4 Hours Moderation/Week</td></tr>
+                                    <tr><td class="px-4 py-3 text-white font-medium">Leadership Team</td><td class="px-4 py-3">5 Hours Moderation/Week</td></tr>
+                                    <tr><td class="px-4 py-3 text-white font-medium">Rest of Staff</td><td class="px-4 py-3 text-amber-400">6 Hours Moderation/Week</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                     <!-- 1.5 Melony -->
+                    <section>
+                         <h3 class="text-xl font-semibold text-blue-300 mb-3">§1.5 - Melony Moderation Platform</h3>
+                         <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 flex items-center justify-between">
+                            <div>
+                                <p class="text-slate-300 mb-1">Centralized platform for reports & logging.</p>
+                                <p class="text-xs text-slate-500">Mandatory for all staff.</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs text-slate-500 uppercase font-bold mb-1">Invite Code</span>
+                                <code class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded font-mono text-lg">NFLDRU</code>
+                            </div>
+                         </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- §2.0 VEHICLE & TOOLS -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-purple-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-purple-500/10 text-purple-400 py-1 px-3 rounded-md text-lg mr-3">§2.0</span>
+                    Staff Vehicle & Tool Usage
+                </h2>
+
+                <div class="space-y-8">
+                     <p class="text-slate-400 italic">In-game assets, including <strong>Staff Administrative Commands</strong>, are only for moderation duties.</p>
+
+                    <!-- 2.1 Vehicles -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-purple-300 mb-3">§2.1 - Vehicle Requirements</h3>
+                        <ul class="space-y-3 text-slate-300 list-disc pl-5">
+                            <li><strong class="text-white">Mandatory Team:</strong> You <strong>must be on the Sheriff's Team</strong> to use Staff vehicles.</li>
+                            <li><strong class="text-white">Livery/Lights:</strong> Must use the official <strong>Staff Livery</strong> with <strong>Stage 1 Lights</strong> active for visibility.</li>
+                            <li><strong class="text-white">Prohibited Use:</strong> <strong>Strictly prohibited</strong> for personal travel or roleplay. Staff are <strong>not permitted to engage in roleplay</strong> while on duty unless granted explicit <strong>50/50 Permissions</strong>.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 2.2 Equipment -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-purple-300 mb-3">§2.2 - Equipment & Weapons</h3>
+                        <ul class="space-y-3 text-slate-300 list-disc pl-5">
+                            <li><strong class="text-white">Primary Tool:</strong> <strong>Spectator/Fly Mode</strong> (via commands like :view or :load).</li>
+                            <li><strong class="text-white">Authorized Gear:</strong> Handcuffs, Radio, Firearms (only for moderation/security duties).</li>
+                            <li><strong class="text-white">Strict Restriction:</strong> All gear is <strong>strictly for administrative use</strong> and <strong>never</strong> for roleplay scenarios.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 2.3 Intervention -->
+                     <section>
+                        <h3 class="text-xl font-semibold text-purple-300 mb-3">§2.3 - Vehicle Interference Protocols</h3>
+                         <ul class="space-y-3 text-slate-300 list-disc pl-5">
+                             <li><strong class="text-white">Non-Interference:</strong> <strong>DO NOT</strong> enter an active RP scene unless immediate action is required.</li>
+                             <li><strong class="text-white">Steps:</strong> 1. Observe. 2. Spectate/Approach silently. 3. Intervene with commands.</li>
+                         </ul>
+                    </section>
+                </div>
+            </div>
+
+            <!-- §3.0 ENFORCEMENT -->
+            <div class="content-section bg-slate-800 rounded-2xl shadow-lg p-8 border-l-4 border-red-500">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="bg-red-500/10 text-red-400 py-1 px-3 rounded-md text-lg mr-3">§3.0</span>
+                    Enforcement & Punishments
+                </h2>
+
+                <div class="space-y-8">
+                    <!-- 3.1 Matrix -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-red-300 mb-3">§3.1 - Progressive Disciplinary Matrix</h3>
+                        <p class="text-slate-400 mb-4 text-sm">Punishments escalate with repeated offenses within 30 days. <strong>NO EXCEPTIONS.</strong></p>
+                        
+                        <div class="overflow-x-auto rounded-lg border border-slate-700">
+                            <table class="min-w-full divide-y divide-slate-700">
+                                <thead class="bg-slate-900">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-400 uppercase">Category</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-400 uppercase">1st Offense</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-400 uppercase">Escalation</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-slate-800 divide-y divide-slate-700 text-sm">
+                                    <tr>
+                                        <td class="px-4 py-3 text-red-400 font-bold">A. ZERO TOLERANCE</td>
+                                        <td class="px-4 py-3 text-red-400 font-bold">PERMANENT BAN</td>
+                                        <td class="px-4 py-3 text-slate-500">N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-orange-400 font-bold">B. STAFF INTERFERENCE</td>
+                                        <td class="px-4 py-3 text-orange-400 font-bold">KICK</td>
+                                        <td class="px-4 py-3 text-slate-300">Kick (2nd) → Perm Ban (3rd)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-yellow-400 font-bold">C. MAJOR RP VIOLATION</td>
+                                        <td class="px-4 py-3 text-yellow-400 font-bold">FORMAL WARNING</td>
+                                        <td class="px-4 py-3 text-slate-300">Kick (2nd) → <strong>2-WEEK BAN</strong> (3rd)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-emerald-400 font-bold">D. MINOR RP VIOLATION</td>
+                                        <td class="px-4 py-3 text-emerald-400 font-bold">VERBAL WARNING</td>
+                                        <td class="px-4 py-3 text-slate-300">Formal (2nd) → Kick (3rd)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- 3.2 Evasion -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-red-300 mb-3">§3.2 - Progression & Evasion</h3>
+                         <ul class="space-y-3 text-slate-300 list-disc pl-5">
+                            <li><strong class="text-amber-400">Escalation:</strong> Repeating a rule-break moves to the next punishment tier immediately.</li>
+                            <li><strong class="text-red-500">Punishment Evasion:</strong> Rejoining before a cooldown (e.g., after a KICK) results in an immediate <strong>2-WEEK BAN</strong>.</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="hidden bg-slate-800 border-l-4 border-amber-500 p-6 rounded-r-lg text-center">
+                <p class="text-white text-lg font-medium">No results found.</p>
+                <p class="text-slate-400">Try adjusting your search terms.</p>
+            </div>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-slate-700 text-center">
+            <p class="text-slate-500 text-sm mb-2">&copy; 2025 TXRP Staff Team.</p>
+            <p class="text-xs text-slate-600 uppercase tracking-wider">Melony Code: NFLDRU</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function filterContent() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const sections = document.getElementsByClassName('content-section');
+            const noResults = document.getElementById('noResults');
+            let hasVisibleContent = false;
+
+            for (let i = 0; i < sections.length; i++) {
+                const section = sections[i];
+                const text = section.textContent || section.innerText;
+
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    section.style.display = "";
+                    hasVisibleContent = true;
+                    
+                    // Highlight logic (simplified)
+                    // In a real app, complex highlighting requires rebuilding the DOM text nodes
+                } else {
+                    section.style.display = "none";
+                }
+            }
+
+            if (!hasVisibleContent && filter.length > 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
